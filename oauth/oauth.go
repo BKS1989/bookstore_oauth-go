@@ -21,7 +21,7 @@ const (
 
 var (
 	oauthRestClient = rest.RequestBuilder{
-		BaseURL: "http://localhost:8080",
+		BaseURL: "http://localhost:8081",
 		Timeout: 200 * time.Millisecond,
 	}
 )
@@ -92,6 +92,7 @@ func cleanRequest(request *http.Request) {
 	request.Header.Del(headerXClientId)
 }
 func getAccesToken(accessTokenId string) (*accessToken,*errors.RestErr) {
+	fmt.Println(accessTokenId)
 	response := oauthRestClient.Get(fmt.Sprintf("/oauth/access_token/%s",accessTokenId))
 	if response == nil || response.Response == nil {
 		return nil, errors.NewInternalServerError("invalid restclient response while logging to user")
